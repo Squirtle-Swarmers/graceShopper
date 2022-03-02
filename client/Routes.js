@@ -5,13 +5,14 @@ import { Login, Signup } from './components/AuthForm';
 import Home from './components/Home';
 import AllProducts from './components/AllProducts'
 import {me} from './store'
+import SingleProduct from './components/SingleProduct'
 
 /**
  * COMPONENT
  */
 class Routes extends Component {
   componentDidMount() {
-    this.props.loadInitialData()
+    this.props.loadInitialData(this.props.match.params.productId)
   }
 
   render() {
@@ -32,8 +33,9 @@ class Routes extends Component {
             <Route path='/' exact component={ Login } />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
-            <Route path="/products" component={AllProducts} />
-            <Redirect to="/products" />
+            <Route exact path="/products" component={AllProducts} />
+            {/* <Redirect to="/products" /> */}
+            <Route path = "/products/:productId" component = { SingleProduct } />
           </Switch>
         )}
       </div>

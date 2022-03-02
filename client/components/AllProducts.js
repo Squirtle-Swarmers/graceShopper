@@ -11,11 +11,12 @@ export function AllProducts (props) {
     const products = props.products;
     return (
       <div className = "listView">
-          <p> I'm bitch </p>
           <div className = "cards">
               {products.map((product) => (
                 <div key={product.id} className="card">
-                    <div className="image-container"><img className="card-img" src={product.image} alt="product-image" /></div>
+                    < Link to={`products/${product.id}`}>
+                        <div className="image-container"><img className="card-img" src={product.image} alt="product-image" /></div>
+                    </Link>
                     <h4>{product.name}</h4>
                     <p> Price: {product.price} </p>
                 </div>
