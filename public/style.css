@@ -53,3 +53,12 @@ form div {
 .card-img {
   width: 100%;
 }
+
+.singelItemView {
+  justify-content: center;
+  text-align: center;
+}
+.singleImage {
+  height: 70%;
+  width: 70%;
+}

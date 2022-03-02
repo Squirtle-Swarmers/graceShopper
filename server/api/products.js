@@ -2,6 +2,7 @@ const router = require('express').Router()
 const { models: { Product }} = require('../db')
 module.exports = router
 
+// GET api/products
 router.get('/', async (req, res, next) => {
   try {
     const products = await Product.findAll()
@@ -11,12 +12,12 @@ router.get('/', async (req, res, next) => {
   }
 })
 
+// GET api/products/productId
 router.get('/:productId', async (req, res, next) => {
   try {
     const product = await Product.findByPk(req.params.productId)
     res.json(product);
-  }
-  catch (err) {
+  }catch (err) {
     next(err);
   }
 });
