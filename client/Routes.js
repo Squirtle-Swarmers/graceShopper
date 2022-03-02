@@ -22,10 +22,7 @@ class Routes extends Component {
         {isLoggedIn ? (
           <Switch>
             <Route path="/home" component={Home} />
-            <Redirect to="/home" />
-            {/* All Products do not render when logged in*/}
             <Route path="/products" component={AllProducts} />
-            <Redirect to="/products" />
           </Switch>
         ) : (
           <Switch>
@@ -33,7 +30,6 @@ class Routes extends Component {
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
             <Route path="/products" component={AllProducts} />
-            <Redirect to="/products" />
           </Switch>
         )}
       </div>
