@@ -12,7 +12,7 @@ import SingleProduct from './components/SingleProduct'
  */
 class Routes extends Component {
   componentDidMount() {
-    this.props.loadInitialData(this.props.match.params.productId)
+    this.props.loadInitialData()
   }
 
   render() {
