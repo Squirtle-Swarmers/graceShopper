@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
 import { Login, Signup } from './components/AuthForm';
 import Home from './components/Home';
+import AllProducts from './components/AllProducts'
 import {me} from './store'
 
 /**
@@ -22,12 +23,17 @@ class Routes extends Component {
           <Switch>
             <Route path="/home" component={Home} />
             <Redirect to="/home" />
+            {/* All Products do not render when logged in*/}
+            <Route path="/products" component={AllProducts} />
+            <Redirect to="/products" />
           </Switch>
         ) : (
           <Switch>
             <Route path='/' exact component={ Login } />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
+            <Route path="/products" component={AllProducts} />
+            <Redirect to="/products" />
           </Switch>
         )}
       </div>
