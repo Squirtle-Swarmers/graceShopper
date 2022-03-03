@@ -11,6 +11,7 @@ export function SingleProduct(props) {
             <h2>{product.name}</h2> 
             <h3> {product.price} </h3> 
             <p>{product.description}</p> 
+            <button> Add to Cart </button> 
         </div>
     )
 }
