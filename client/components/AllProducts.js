@@ -9,21 +9,27 @@ export function AllProducts (props) {
         props.setProducts()
     }, [])
     const products = props.products;
-    return (
-      <div className = "listView">
-          <div className = "cards">
-              {products.map((product) => (
-                <div key={product.id} className="card">
-                    < Link to={`products/${product.id}`}>
-                        <div className="image-container"><img className="card-img" src={product.image} alt="product-image" /></div>
-                    </Link>
-                    <h4>{product.name}</h4>
-                    <p> Price: {product.price} </p>
-                </div>
-                ))}
+    if(products.length === 0 ) {
+        return (<p> No Products to Display </p>)
+    } else { 
+        return (
+            <div className = "listView">
+                <div className = "cards">
+                    {products.map((product) => (
+                      <div key={product.id} className="card">
+                          < Link to={`products/${product.id}`}>
+                              <div className="image-container"><img className="card-img" src={product.image} alt="product-image" /></div>
+                          </Link>
+                          <h4>{product.name}</h4>
+                          <p> Price: {product.price} </p>
+                          <button> Add to Cart </button>
+                      </div>
+                      ))}
+                  </div>
             </div>
-      </div>
-    );
+          );
+    }
+   
   }
 
 function mapState(state){
