@@ -12,13 +12,6 @@ const OrderDetails = db.define('orderDetails', {
     type: Sequelize.INTEGER,
     allowNull: true
   },
-  status: {
-    type: Sequelize.STRING,
-    defaultValue: 'unfulfilled',
-    validate: {
-      isIn: [['fulfilled', 'unfulfilled']]
-    }
-  },
   price: {
     type: Sequelize.INTEGER,
     allowNull: false,
