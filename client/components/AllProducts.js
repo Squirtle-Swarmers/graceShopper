@@ -2,6 +2,7 @@ import React, {useEffect} from "react";
 import { connect } from "react-redux";
 import { fetchProductsThunk } from "../store/products";
 import { Link } from "react-router-dom";
+import AddProductForm from './AddProductForm'
 
 export function AllProducts (props) {
     console.log("// [ AllProducts Functional Component ] - props: ", props);
@@ -14,6 +15,8 @@ export function AllProducts (props) {
     } else { 
         return (
             <div className = "listView">
+                <AddProductForm />
+
                 <div className = "cards">
                     {products.map((product) => (
                       <div key={product.id} className="card">
