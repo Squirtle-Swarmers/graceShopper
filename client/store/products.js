@@ -12,7 +12,8 @@ export const setProducts = (products) => {
   };
 };
 
-// Thunk Creator - returns aysnc function that dispatches the action creator
+// Thunk Creators - returns aysnc function that dispatches the action creator
+// fetches the list of campuses
 export const fetchProductsThunk = () => {
     return async (dispatch) => {
       const response = await axios.get("/api/products");
@@ -20,6 +21,9 @@ export const fetchProductsThunk = () => {
       dispatch(setProducts(products));
     };
 };
+
+// [ admin ] adds a new Product
+export 
 
 // Reducer
 const initialState = []
