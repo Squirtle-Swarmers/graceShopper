@@ -29,6 +29,7 @@ export class AddProductForm extends React.Component {
     const { name, price, description } = this.state;
     const { handleSubmit, handleChange } = this;
 
+
     return (
       <div>
         <h3> Add A New Product </h3>
