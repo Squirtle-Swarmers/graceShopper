@@ -14,7 +14,20 @@ const User = db.define('user', {
   },
   password: {
     type: Sequelize.STRING,
-  }
+  },  first_name: {
+    type: Sequelize.STRING,
+  },
+  last_name: {
+    type: Sequelize.STRING,
+  },
+  email: {
+    type: Sequelize.STRING,
+    defaultValue: `${this.username}@StreetStack.com`
+  },
+  phone: {
+    type: Sequelize.STRING,
+    defaultValue: `${Math.floor(Math.random() * 10000000000)}`
+  },
 })
 
 module.exports = User
