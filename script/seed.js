@@ -12,15 +12,17 @@ async function seed() {
 
   // Creating Users
   const users = await Promise.all([
-    User.create({ username: 'cody', password: '123' }),
-    User.create({ username: 'murphy', password: '123' }),
-    User.create({ username: 'kazi', password: '32022', isAdmin: true })
+    User.create({ email: 'cody@StreetStack.com', password: '123' }),
+    User.create({ email: 'murphy@StreetStack.com', password: '123' }),
+    User.create({ email: 'kazi@StreetStack.com', password: '32022', isAdmin: true })
   ])
 
   //creating products
   const products = await Promise.all([
     Product.create({ name: 'mochas', price: 550 }),
-    Product.create({ name: 'yeezys', price: 380 })
+    Product.create({ name: 'yeezys', price: 380, image: "https://cdn.flightclub.com/750/TEMPLATE/800389/1.jpg" }),
+    Product.create({ name: "Kith Begonia Floral Williams III Hoodie", price: 170, image: "https://cdn.shopify.com/s/files/1/0094/2252/products/KHM030295-413-1728_900x.jpg?v=1644431046" }),
+    Product.create({ name: "Supreme Rick Rubin Tee", price: 99, image: "https://img.stadiumgoods.com/17/27/92/83/17279283_35295691_2048.jpg" })
   ])
 
   //creating orders

@@ -35,7 +35,7 @@ export const fetchSingleProductThunk = (productId) => {
 export const updateSingleProductThunk = (product) => {
   return async (dispatch) => {
     try {
-      const response = await axios.put(`/api/campuses/${product.id}`, product);
+      const response = await axios.put(`/api/products/${product.id}`, product);
       console.log("// [ updateSingleProductThunk ] - response: ", response)
       const updatedProduct = response.data;
       dispatch(updateSingleProduct(updatedProduct))
