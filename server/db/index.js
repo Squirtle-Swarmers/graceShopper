@@ -28,3 +28,22 @@ module.exports = {
     OrderDetails
   },
 }
+
+//methods
+Order.prototype.incrementProduct = async function (productId, quantity) {
+  const products = await this.getProducts();
+  const productsFiltered = products.filter(product => product.id === productId);
+
+  const cart = await OrderDetails.findAll({
+    where: {
+      orderId: this.id,
+      productId: productId,
+    },
+  });
+  if(!quantity){
+    await this.removeProduct(productId);
+  } else {
+    let updatedQuantity = productsFiltered.length ? cart[0].quantity + quantity : quantity;
+    await this.addProduct(productId, { through: { quantity: updatedQuantity } });
+  }
+}

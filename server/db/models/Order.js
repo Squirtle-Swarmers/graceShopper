@@ -2,8 +2,9 @@ const Sequelize = require('sequelize');
 const db = require('../db');
 
 const Order = db.define('order', {
-  userId: {
-    type: Sequelize.INTEGER
+  quantity: {
+    type: Sequelize.INTEGER,
+    defaultValue: 0,
   },
   status: {
     type: Sequelize.STRING,
