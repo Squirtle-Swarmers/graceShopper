@@ -14,6 +14,13 @@ export const setCart = (order) => {
   };
 };
 
+export const removeFromCart = (order) => {
+  return {
+    type: REMOVE_FROM_CART,
+    order,
+  }
+}
+
 // Thunk Creators - returns aysnc function that dispatches the action creator
 // fetches the list of campuses
 export const fetchOrderThunk = (userId) => {
@@ -24,6 +31,19 @@ export const fetchOrderThunk = (userId) => {
     dispatch(setCart(cart));
   };
 };
+
+export const removeFromCartThunk = (userId, productId) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.put(`/api/users/${userId}`, {"productId": productId, "quantityChange": 0});
+      const data = response.data;
+      console.log(data);
+      dispatch(setCart(data));
+    } catch (error) {
+      console.log("!!! Error from the deleteAProductThunk !!!")
+    }
+  }
+}
 
 
 // Reducer

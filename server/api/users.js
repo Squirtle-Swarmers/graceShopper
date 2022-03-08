@@ -60,9 +60,12 @@ router.put('/:id', async (req, res, next) => {
       req.body.productId,
       req.body.quantityChange
     )
-    const updatedOrder = await Order.findByPk(currentOrder.dataValues.id, { 
-      include: [Product] 
-    });
+    const updatedOrder = await User.findByPk(currentUser.id, { 
+      include: {
+        model: Order,
+        include: [Product]
+      },
+    })
     res.json(updatedOrder);
   } catch (error) {
     next(error);
