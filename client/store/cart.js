@@ -3,8 +3,6 @@ const axios = require("axios");
 
 // Action Constants -- store action types as constants
 const SET_CART = "SET_CART";
-const ADD_TO_CART = "ADD_TO_CART";
-const REMOVE_FROM_CART = "REMOVE_FROM_CART";
 
 // Action Creators -- functions that return an action object
 export const setCart = (order) => {
@@ -13,13 +11,6 @@ export const setCart = (order) => {
     order,
   };
 };
-
-export const removeFromCart = (order) => {
-  return {
-    type: REMOVE_FROM_CART,
-    order,
-  }
-}
 
 // Thunk Creators - returns aysnc function that dispatches the action creator
 // fetches the list of campuses
@@ -32,10 +23,11 @@ export const fetchOrderThunk = (userId) => {
   };
 };
 
-export const removeFromCartThunk = (userId, productId) => {
+export const updateCartThunk = (userId, productId, updatedQuantity) => {
   return async (dispatch) => {
     try {
-      const response = await axios.put(`/api/users/${userId}`, {"productId": productId, "quantityChange": 0});
+      console.log(updatedQuantity);
+      const response = await axios.put(`/api/users/${userId}`, {"productId": productId, "quantityChange": updatedQuantity});
       const data = response.data;
       console.log(data);
       dispatch(setCart(data));
