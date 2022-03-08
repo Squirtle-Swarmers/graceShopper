@@ -56,6 +56,7 @@ router.put('/:id', async (req, res, next) => {
     } else {
       currentOrder = await Order.create({ userId: currentUser.id});
     }
+    console.log(req.body)
     await currentOrder.incrementProduct(
       req.body.productId,
       req.body.quantityChange

@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchOrderThunk } from "../store/cart";
-import { removeFromCartThunk } from "../store/cart";
+import { updateCartThunk } from "../store/cart";
 import { Link } from "react-router-dom";
 
 export function Cart(props) {
@@ -24,8 +24,9 @@ export function Cart(props) {
                     <h4>{product.name}</h4>
                     <p> Price: {product.price} </p>
                     <p>Quantity: {product.orderDetails.quantity}</p>
-                    <button onClick={() => props.removeFromCart(props.auth.id, product.id)}>Remove From Cart</button>
-                    {/* <button onClick={() => } */}
+                    <button onClick={() => props.updateCart(props.auth.id, product.id, -1)}>-</button>
+                    <button onClick={() => props.updateCart(props.auth.id, product.id, 0)}>Remove From Cart</button>
+                    <button onClick={() => props.updateCart(props.auth.id, product.id, 1)}>+</button>
                 </div>
             ))}
         </div>
@@ -49,7 +50,7 @@ function mapState(state) {
 function mapDispatch(dispatch) {
   return {
     setCart: (userId) => dispatch(fetchOrderThunk(userId)),
-    removeFromCart: (userId, productId) => dispatch(removeFromCartThunk(userId, productId))
+    updateCart: (userId, productId, quantityChange) => dispatch(updateCartThunk(userId, productId, quantityChange))
   };
 }
 
