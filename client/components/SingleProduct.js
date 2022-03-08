@@ -1,3 +1,4 @@
+import axios from "axios";
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
 import { fetchSingleProductThunk } from "../store/singleProduct";
@@ -7,7 +8,17 @@ export function SingleProduct(props) {
     useEffect(() => { props.setSingleProduct(props.match.params.productId) }, []);
     const { product } = props;
     const isAdmin = props.auth.isAdmin;
-    console.log("// [SingleProduct Component] - props: ", props)
+    console.log("// [SingleProduct Component] - props: ", props);
+
+    async function handleAdd(productId, quantityChange) {
+        if (props.auth.id) {
+            await axios.put(`/api/users/${props.auth.id}`, {"productId": productId, "quantityChange": quantityChange});
+            window.alert("added to cart")
+        } else {
+            
+        }
+    }
+
     return (
         <div className="singleProductView">
             {isAdmin ? <EditProductForm /> : ''}
@@ -17,7 +28,7 @@ export function SingleProduct(props) {
             <h3> {product.price} </h3>
             <p>{product.description}</p>
             {/* if logged in and userType = customer display this: */}
-            <button> Add to Cart </button>
+            <button onClick={() => handleAdd(product.id, 1)}> Add to Cart </button>
             {/* else:  */}
         </div>
     )
