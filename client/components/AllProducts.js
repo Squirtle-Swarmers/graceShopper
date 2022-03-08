@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { fetchProductsThunk, deleteAProductThunk } from "../store/products";
 import { Link } from "react-router-dom";
 import AddProductForm from './AddProductForm'
+import axios from "axios";
 
 export function AllProducts(props) {
     console.log("// [ AllProducts Functional Component ] - props: ", props);
@@ -11,6 +12,16 @@ export function AllProducts(props) {
     }, [])
     const products = props.products;
     const handleDelete = props.deleteAProduct;
+
+    async function handleAdd(productId, quantityChange) {
+        if (props.auth.id) {
+            await axios.put(`/api/users/${props.auth.id}`, {"productId": productId, "quantityChange": quantityChange});
+            window.alert("added to cart")
+        } else {
+            //not logged in
+        }
+    }
+
     if (products.length === 0) {
         return (<p> No Products to Display </p>)
     } else {
@@ -26,7 +37,7 @@ export function AllProducts(props) {
                             </Link>
                             <h4>{product.name}</h4>
                             <p> Price: {product.price} </p>
-                            <button> Add to Cart </button>
+                            <button onClick={() => handleAdd(product.id, 1)}> Add to Cart </button>
                             {props.auth.isAdmin ? <button type="button" onClick={() => handleDelete(product.id)}> Delete Product </button> : ''}
                         </div>
                     ))}
@@ -49,7 +60,7 @@ function mapState(state) {
 function mapDispatch(dispatch) {
     return {
         setProducts: () => dispatch(fetchProductsThunk()),
-        deleteAProduct: (product) => dispatch(deleteAProductThunk(product))
+        deleteAProduct: (product) => dispatch(deleteAProductThunk(product)),
     };
 }
 
