@@ -20,7 +20,7 @@ export const fetchOrderThunk = (userId) => {
   return async (dispatch) => {
     const response = await axios.get(`/api/users/${userId}/orders`);
     const cart = response.data//.orders.filter((order) => order.status === "unfulfilled");
-    console.log(cart);
+    console.log("// [fetchOrderThunk ] - response.data", cart);
     dispatch(setCart(cart));
   };
 };
@@ -31,7 +31,7 @@ const initialState = {}
 export default function cartReducer(state = initialState, action) {
   switch (action.type) {
     case SET_CART:
-      return action.cart;
+      return action.order;
     default:
       return state;
   }
