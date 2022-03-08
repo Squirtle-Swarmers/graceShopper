@@ -1,6 +1,5 @@
 const router = require('express').Router()
 const { models: { Product } } = require('../db')
-module.exports = router
 
 // GET api/products
 router.get('/', async (req, res, next) => {
@@ -33,18 +32,6 @@ router.get('/:productId', async (req, res, next) => {
   }
 });
 
-// PUT api/products/productId
-router.put("/:productId", async (req, res, next) => {
-  try {
-    const productToBeUpdated = await Product.findByPk(req.params.productId);
-    const updatedProduct = await productToBeUpdated.update(req.body);
-    res.send(updatedProduct)
-  } catch (error) {
-    next(error)
-  }
-})
-module.exports = router;
-
 // DELETE api/products/productId
 router.delete("/:productId", async (req, res, next) => {
   try {
@@ -55,3 +42,16 @@ router.delete("/:productId", async (req, res, next) => {
     next(error);
   }
 });
+
+// PUT api/products/productId
+router.put("/:productId", async (req, res, next) => {
+  try {
+    const productToBeUpdated = await Product.findByPk(req.params.productId);
+    const updatedProduct = await productToBeUpdated.update(req.body);
+    res.send(updatedProduct)
+  } catch (error) {
+    next(error)
+  }
+})
+
+module.exports = router

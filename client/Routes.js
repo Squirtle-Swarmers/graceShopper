@@ -1,10 +1,10 @@
-import React, {Component, Fragment} from 'react'
-import {connect} from 'react-redux'
-import {withRouter, Route, Switch, Redirect} from 'react-router-dom'
+import React, { Component, Fragment } from 'react'
+import { connect } from 'react-redux'
+import { withRouter, Route, Switch, Redirect } from 'react-router-dom'
 import { Login, Signup } from './components/AuthForm';
 import Home from './components/Home';
 import AllProducts from './components/AllProducts'
-import {me} from './store'
+import { me } from './store'
 import SingleProduct from './components/SingleProduct'
 import AccountInfo from './components/AccountInfo';
 
@@ -18,25 +18,27 @@ class Routes extends Component {
 
   render() {
     console.log(" // [ Routes Component ] - this.props: ", this.props)
-    const {isLoggedIn} = this.props
+    const { isLoggedIn } = this.props
 
     return (
       <div>
         {isLoggedIn ? (
           <Switch>
+            <Route path="/" exact component={Home} />
             <Route path="/home" component={Home} />
+            <Route path='/login' exact component={Home} />
             <Route exact path="/products" component={AllProducts} />
-            <Route exact path = "/products/:productId" component = { SingleProduct } />
-            <Route exact path = "/accountinfo" component = {AccountInfo} />
+            <Route exact path="/products/:productId" component={SingleProduct} />
+            <Route exact path="/accountinfo" component={AccountInfo} />
           </Switch>
         ) : (
           <Switch>
-            <Route path='/' exact component={ Login } />
+            <Route path='/' exact component={Login} />
             <Route path="/login" component={Login} />
             <Route path="/signup" component={Signup} />
 
             <Route exact path="/products" component={AllProducts} />
-            <Route path = "/products/:productId" component = { SingleProduct } />
+            <Route path="/products/:productId" component={SingleProduct} />
           </Switch>
         )}
       </div>

@@ -5,7 +5,7 @@ import EditProductForm from "./EditProductForm";
 
 export function SingleProduct(props) {
     useEffect(() => { props.setSingleProduct(props.match.params.productId) }, []);
-    const product = props.singleProduct;
+    const { product } = props;
     const isAdmin = props.auth.isAdmin;
     console.log("// [SingleProduct Component] - props: ", props)
     return (
@@ -26,7 +26,7 @@ export function SingleProduct(props) {
 function mapState(state) {
     console.log("// logging state from mapState in SingleProduct", state);
     return {
-        singleProduct: state.singleProduct,
+        product: state.singleProduct,
         auth: state.auth
     }
 }
