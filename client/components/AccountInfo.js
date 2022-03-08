@@ -7,10 +7,7 @@ class AccountInfo extends React.Component {
   constructor() {
     super();
     this.state = {
-      first_name: "",
-      last_name: "",
-      email: "",
-      phone: "",
+      email: ""
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
@@ -21,9 +18,7 @@ class AccountInfo extends React.Component {
     console.log('this is the user', user)
 
     this.setState({
-      username: user.username || "",
-      email: `${user.username}@StreetStack.com` || "",
-      phone: user.phone || "",
+      email: user.email || "",
     });
   }
 
@@ -47,15 +42,10 @@ class AccountInfo extends React.Component {
   }
 
   render() {
-    const { username, email, phone } =
-      this.state;
-      let formatPhone = "(" + phone.slice(0, 3) + ")-" + phone.slice(3, 6) + "-" + phone.slice(6, 10)
-
+    const { email } = this.state;
     return (
       <div>
-        <h3>Username: {username}</h3>
         <h3>Email : {email}</h3>
-        <h3>Phone : {formatPhone}</h3>
       </div>
     );
   }
