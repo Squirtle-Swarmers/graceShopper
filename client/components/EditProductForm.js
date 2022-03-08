@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { updateSingleProductThunk, fetchSingleProductThunk } from "../store/singleProduct";
+import { fetchSingleProductThunk, updateSingleProductThunk } from '../store/singleProduct'
 
 class EditProductForm extends React.Component {
     constructor() {
@@ -13,7 +13,7 @@ class EditProductForm extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     componentDidMount() {
-        this.props.setSingleProduct(this.props.product.productId);
+        this.props.setProduct(this.props.product.id);
     }
 
     componentDidUpdate(prevProps) {
@@ -35,7 +35,7 @@ class EditProductForm extends React.Component {
         this.props.updateProduct({ ...this.props.product, ...this.state });
     }
     render() {
-        console.log("// [ EditProductForm ] - props: ", this.props)
+        console.log("// [ EditProductForm ] - props", this.props)
         return (
             <div>
                 <h4> Update this Product's Information: </h4>
@@ -47,7 +47,7 @@ class EditProductForm extends React.Component {
                         value={this.state.name}
                     />
 
-                    <label htmlFor="price"> Price: </label>
+                    <label htmlFor="price"> Price </label>
                     <input
                         name="price"
                         onChange={this.handleChange}
@@ -62,15 +62,16 @@ class EditProductForm extends React.Component {
 }
 
 const mapStateToProps = (state) => {
+    console.log(" // [ EditProductForm/mapstateToProps] - state: ", state)
     return {
-        product: state.singleProduct
+        product: state.singleProduct,
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
         updateProduct: (product) => dispatch(updateSingleProductThunk(product)),
-        setSingleProduct: (productId) => fetchSingleProductThunk(productId),
+        setProduct: (productId) => fetchSingleProductThunk(productId),
     };
 };
 
