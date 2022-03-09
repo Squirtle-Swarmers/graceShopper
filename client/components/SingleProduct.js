@@ -10,13 +10,53 @@ export function SingleProduct(props) {
     const isAdmin = props.auth.isAdmin;
     console.log("// [SingleProduct Component] - props: ", props);
 
+    const addToGuestCart =
+  (id, price, imageUrl, name ) => {
+    let cartItems =
+      JSON.parse(localStorage.getItem("cart")) !== null
+        ? JSON.parse(localStorage.getItem("cart"))
+        : [];
+    let guestCartBuffer =
+      JSON.parse(localStorage.getItem("guestCartBuffer")) !== null
+        ? JSON.parse(localStorage.getItem("guestCartBuffer"))
+        : [];
+
+    let itemInCart = cartItems.filter((item) => Number(item.id) === Number(id));
+
+    cartItems.forEach((item) => {
+      if (item.id === id) {
+        item.quantity++;
+      }
+    });
+
+    guestCartBuffer.forEach((item) => {
+      if (Number(item.id) === Number(id)) {
+        item.quantity++;
+      }
+    });
+
+    if (itemInCart.length === 0) {
+      const newItem = {
+        id,
+        name,
+        price,
+        imageUrl,
+        quantity: 1,
+      };
+      cartItems = [...cartItems, newItem];
+      guestCartBuffer = [...guestCartBuffer, newItem];
+    }
+    localStorage.setItem("cart", JSON.stringify(cartItems));
+    localStorage.setItem("guestCartBuffer", JSON.stringify(guestCartBuffer));
+  };
+
     async function handleAdd(productId, quantityChange) {
         if (props.auth.id) {
             await axios.put(`/api/users/${props.auth.id}`, {"productId": productId, "quantityChange": quantityChange});
-            window.alert("added to cart")
         } else {
-            
+            addToGuestCart(product.id, product.price, product.image, product.name)
         }
+        window.alert("added to cart")
     }
 
     return (
