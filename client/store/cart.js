@@ -3,7 +3,8 @@ const axios = require("axios");
 
 // Action Constants -- store action types as constants
 const SET_CART = "SET_CART";
-// const CHECKOUT = "CHECKOUT";
+const CHECKOUT_CART = "CHECKOUT_CART";
+const UPDATE_CART = "UPDATE_CART";
 
 // Action Creators -- functions that return an action object
 export const setCart = (order) => {
@@ -13,12 +14,19 @@ export const setCart = (order) => {
   };
 };
 
-// export const checkout = (order) => {
-//   return {
-//     type: CHECKOUT,
-//     order,
-//   }
-// }
+export const checkoutCart = (order) => {
+  return {
+    type: CHECKOUT_CART,
+    order,
+  }
+}
+
+export const updateCart = (order) => {
+  return {
+    type: UPDATE_CART,
+    order,
+  }
+}
 
 // Thunk Creators - returns aysnc function that dispatches the action creator
 // fetches the list of campuses
@@ -38,25 +46,24 @@ export const updateCartThunk = (userId, productId, updatedQuantity) => {
       const response = await axios.put(`/api/users/${userId}`, {"productId": productId, "quantityChange": updatedQuantity});
       const data = response.data;
       console.log(data);
-      dispatch(setCart(data));
+      dispatch(updateCart(data));
     } catch (error) {
       console.log("!!! Error from the deleteAProductThunk !!!")
     }
   }
 }
 
-// export const checkoutCartThunk = (userId) => {
-//   return async (dispatch) => {
-//     try {
-//       const response = await axios.put(`/api/users/${userId}/checkout`);
-//       const data = response.data;
-//       console.log(data);
-//       dispatch(setCart(data));
-//     } catch (error) {
-//       console.log("Error from checkout thunk")
-//     }
-//   }
-// }
+export const checkoutCartThunk = (userId) => {
+  return async (dispatch) => {
+    try {
+      const response = await axios.put(`/api/users/${userId}/checkout`);
+      const cart = response.data;
+      dispatch(checkoutCart(cart));
+    } catch (error) {
+      console.log("Error from checkout thunk", error)
+    }
+  }
+}
 
 
 // Reducer
@@ -65,6 +72,10 @@ export default function cartReducer(state = initialState, action) {
   switch (action.type) {
     case SET_CART:
       return action.order;
+    case UPDATE_CART: 
+      return action.order;
+    case CHECKOUT_CART:
+      return action.order
     default:
       return state;
   }

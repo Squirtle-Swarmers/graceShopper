@@ -38,7 +38,7 @@ export function AllProducts(props) {
                             <div>
                                 <h4>{product.name}</h4>
                                 <p> Price: {product.price} </p>
-                                <button> Add to Cart </button>
+                                <button onClick={() => handleAdd(product.id, 1)}> Add to Cart </button>
                                 {props.auth.isAdmin ? <button type="button" onClick={() => handleDelete(product.id)}> Delete Product </button> : ''}
                             </div>
                         </div>
