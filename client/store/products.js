@@ -29,7 +29,7 @@ export const deleteAProduct = (product) => {
 }
 
 // Thunk Creators - returns aysnc function that dispatches the action creator
-// fetches the list of users
+// fetches the list of products
 export const fetchProductsThunk = () => {
   return async (dispatch) => {
     const response = await axios.get("/api/products");
@@ -42,7 +42,9 @@ export const fetchProductsThunk = () => {
 export const addNewProductThunk = (newProduct) => {
   return async (dispatch) => {
     try {
-      const response = await axios.post('/api/products', newProduct);
+      const token = window.localStorage.getItem("token");
+      const headers = { Authorization: token };
+      const response = await axios.post('/api/products', newProduct, { headers });
       const data = response.data;
       dispatch(addAProduct(data));
     } catch (error) {

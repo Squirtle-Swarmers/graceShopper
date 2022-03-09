@@ -14,23 +14,23 @@ export function Cart(props) {
   console.log("// [ Cart Component ] - props.cart", cart);
   if (Array.isArray(productsForOrder) && productsForOrder.length) {
     return (
-      <div className="listView">
+      <div className="list">
         <div className="cards">
-            {productsForOrder[0].products.map((product) => (
-                <div key={product.id} className="card">
-                    < Link to={`products/${product.id}`}>
-                        <div className="image-container"><img className="card-img" src={product.image} alt="product-image" /></div>
-                    </Link>
-                    <h4>{product.name}</h4>
-                    <p> Price: {product.price} </p>
-                    <p>Quantity: {product.orderDetails.quantity}</p>
-                    <button onClick={() => {
-                      product.orderDetails.quantity < 2 ? props.updateCart(props.auth.id, product.id, 0) : props.updateCart(props.auth.id, product.id, -1)
-                      }}>-</button>
-                    <button onClick={() => props.updateCart(props.auth.id, product.id, 0)}>Remove From Cart</button>
-                    <button onClick={() => props.updateCart(props.auth.id, product.id, 1)}>+</button>
-                </div>
-            ))}
+          {productsForOrder[0].products.map((product) => (
+            <div key={product.id} className="singleItem">
+              < Link to={`products/${product.id}`}>
+                <div className="image-container"><img className="listImages" src={product.image} alt="product-image" /></div>
+              </Link>
+              <h4>{product.name}</h4>
+              <p> Price: {product.price} </p>
+              <p>Quantity: {product.orderDetails.quantity}</p>
+              <button onClick={() => {
+                product.orderDetails.quantity < 2 ? props.updateCart(props.auth.id, product.id, 0) : props.updateCart(props.auth.id, product.id, -1)
+              }}>-</button>
+              <button onClick={() => props.updateCart(props.auth.id, product.id, 0)}>Remove From Cart</button>
+              <button onClick={() => props.updateCart(props.auth.id, product.id, 1)}>+</button>
+            </div>
+          ))}
         </div>
       </div>
     )

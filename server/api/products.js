@@ -12,8 +12,8 @@ router.get('/', async (req, res, next) => {
   }
 })
 
-// POST api/products
-router.post('/', async (req, res, next) => {
+// POST api/products [ admin ]
+router.post('/', requireToken, isAdmin, async (req, res, next) => {
   try {
     const newProduct = req.body;
     console.log('// [ POST api/products ] req.body: ', req.body)
@@ -33,7 +33,7 @@ router.get('/:productId', async (req, res, next) => {
   }
 });
 
-// DELETE api/products/productId
+// DELETE api/products/productId [ admin ]
 router.delete("/:productId", requireToken, isAdmin, async (req, res, next) => {
   try {
     const productToBeDeleted = await Product.findByPk(req.params.productId);
@@ -44,8 +44,8 @@ router.delete("/:productId", requireToken, isAdmin, async (req, res, next) => {
   }
 });
 
-// PUT api/products/productId
-router.put("/:productId", async (req, res, next) => {
+// PUT api/products/productId [ admin ]
+router.put("/:productId", requireToken, isAdmin, async (req, res, next) => {
   try {
     const productToBeUpdated = await Product.findByPk(req.params.productId);
     const updatedProduct = await productToBeUpdated.update(req.body);
