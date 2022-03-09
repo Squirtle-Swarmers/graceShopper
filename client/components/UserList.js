@@ -12,11 +12,11 @@ export function UsersList(props) {
         return (<p> Users Loading </p>)
     } else {
         return (
-            <div className="listView">
+            <div className="list">
                 <div><h2> Total Users: {users.length} </h2></div>
-                <div className="cards">
+                <div>
                     {users.map((user) => (
-                        <div key={user.id} className="card">
+                        <div key={user.id} className="singleItem-user">
                             <h4>usersId: {user.id}</h4>
                             <h4>Email: {user.email} </h4>
                         </div>

@@ -56,6 +56,7 @@ class EditProductForm extends React.Component {
 
                     <button type="submit"> Update </button>
                 </form>
+                <hr />
             </div>
         );
     }

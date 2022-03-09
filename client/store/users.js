@@ -15,7 +15,9 @@ export const setUsers = (users) => {
 // fetches the list of users
 export const fetchUsersThunk = () => {
     return async (dispatch) => {
-        const response = await axios.get("/api/users");
+        const token = window.localStorage.getItem("token");
+        const headers = { Authorization: token };
+        const response = await axios.get("/api/users", { headers });
         console.log("// Logging response from fetchUsersThunk: ", response)
         const users = response.data;
         dispatch(setUsers(users));

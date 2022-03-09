@@ -15,19 +15,21 @@ export function AllProducts(props) {
         return (<p> No Products to Display </p>)
     } else {
         return (
-            <div className="listView">
+            <div className="list">
                 {props.auth.isAdmin ? <AddProductForm /> : ""}
 
                 <div className="cards">
                     {products.map((product) => (
-                        <div key={product.id} className="card">
+                        <div key={product.id} className="singleItem">
                             < Link to={`products/${product.id}`}>
-                                <div className="image-container"><img className="card-img" src={product.image} alt="product-image" /></div>
+                                <img className="listImages" src={product.image} alt="product-image" />
                             </Link>
-                            <h4>{product.name}</h4>
-                            <p> Price: {product.price} </p>
-                            <button> Add to Cart </button>
-                            {props.auth.isAdmin ? <button type="button" onClick={() => handleDelete(product.id)}> Delete Product </button> : ''}
+                            <div>
+                                <h4>{product.name}</h4>
+                                <p> Price: {product.price} </p>
+                                <button> Add to Cart </button>
+                                {props.auth.isAdmin ? <button type="button" onClick={() => handleDelete(product.id)}> Delete Product </button> : ''}
+                            </div>
                         </div>
                     ))}
                 </div>

@@ -6,7 +6,7 @@ const OrderDetails = require('../db/models/OrderDetails')
 const Product = require('../db/models/Product')
 module.exports = router
 
-router.get('/', async (req, res, next) => {
+router.get('/', requireToken, isAdmin, async (req, res, next) => {
   try {
     const users = await User.findAll({
       // explicitly select only the id and username fields - even though
