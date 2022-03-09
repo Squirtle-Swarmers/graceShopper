@@ -72,3 +72,73 @@ router.put('/:id', async (req, res, next) => {
     next(error);
   }
 })
+
+router.put('/:id/checkout', async (req, res, next) => {
+  // try {
+  //   const currentUser = await User.findByPk(req.params.id, {
+  //     include: [
+  //       {
+  //         model: Order,
+  //         where: {
+  //           status: 'unfulfilled',
+  //         },
+  //         required: false,
+  //         include: [Product],
+  //       }
+  //     ]
+  //   });
+  //   // console.log("this is current user", currentUser.orders);
+  //   let currentOrder = {};
+  //   //if (currentUser.orders.length) {
+  //     currentOrder = currentUser.orders[0];
+  //     await currentOrder.update({ status: "fulfilled" });
+  //     const newOrder = await Order.create({ userId: req.params.id });
+  //     const updatedOrder = await User.findByPk(currentUser.id, { 
+  //       include: {
+  //         model: Order,
+  //         include: [Product]
+  //       },
+  //     })
+  //     console.log('this is newCart ', updatedOrder)
+  //  // } else {
+  //  //   throw new Error("empty cart");
+  //  // }
+  //   res.json(updatedOrder);
+  // } catch (error) {
+  //   next(error);
+  // }
+
+  try {
+    const currentUser = await User.findByPk(req.params.id, {
+      include: [
+        {
+          model: Order,
+          where: {
+            status: 'unfulfilled',
+          },
+          required: false,
+          include: [Product],
+        }
+      ]
+    })
+    let currentOrder = {};
+    if (currentUser.orders.length) {
+      currentOrder = currentUser.orders[0];
+    } else {
+      // currentOrder = await Order.create({ userId: currentUser.id });
+    }
+    await currentOrder.update({
+      status: "fulfilled"
+    })
+    await Order.create({ userId: currentUser.id })
+    const updatedOrder = await User.findByPk(currentUser.id, { 
+      include: {
+        model: Order,
+        include: [Product]
+      },
+    })
+    res.json(updatedOrder);
+  } catch (error) {
+    next(error);
+  }
+})
