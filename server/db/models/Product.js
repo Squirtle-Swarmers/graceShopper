@@ -23,7 +23,7 @@ const Product = db.define('product', {
   },
   image: {
     type: Sequelize.STRING,
-    defaultValue: 'https://images.stockx.com/images/Air-Jordan-1-Retro-High-Dark-Mocha-2-Product.jpg?fit=fill&bg=FFFFFF&w=700&h=500&fm=webp&auto=compress&q=90&dpr=2&trim=color&updated_at=1616187367',
+    defaultValue: 'https://skillz4kidzmartialarts.com/wp-content/uploads/2017/04/default-image.jpg',
     validate: {
       isUrl: true
     }

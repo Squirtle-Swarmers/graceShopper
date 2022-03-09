@@ -15,7 +15,7 @@ export function AllProducts(props) {
 
     async function handleAdd(productId, quantityChange) {
         if (props.auth.id) {
-            await axios.put(`/api/users/${props.auth.id}`, {"productId": productId, "quantityChange": quantityChange});
+            await axios.put(`/api/users/${props.auth.id}`, { "productId": productId, "quantityChange": quantityChange });
             window.alert("added to cart")
         } else {
             //not logged in
@@ -39,7 +39,8 @@ export function AllProducts(props) {
                                 <h4>{product.name}</h4>
                                 <p> Price: {product.price} </p>
                                 <button onClick={() => handleAdd(product.id, 1)}> Add to Cart </button>
-                                {props.auth.isAdmin ? <button type="button" onClick={() => handleDelete(product.id)}> Delete Product </button> : ''}
+                                {props.auth.isAdmin ? <button className="deleteButton" type="button" onClick={() => handleDelete(product.id)}> Delete Product </button> : ''}
+
                             </div>
                         </div>
                     ))}

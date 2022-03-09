@@ -14,16 +14,17 @@ export function Cart(props) {
   console.log("// [ Cart Component ] - props.cart", cart);
 
   if (Array.isArray(productsForOrder) && productsForOrder.length) {
+
     if (productsForOrder[0].status === "fulfilled") {
       return (
       // <p>Order Placed!</p>
-      <div className="listView">
+      <div className="list">
           <button onClick={() => props.checkoutCart(props.auth.id) && window.alert("order placed!")}>checkout</button>
           <div className="cards">
               {productsForOrder[productsForOrder.length - 1].products.map((product) => (
-                  <div key={product.id} className="card">
+                  <div key={product.id} className="singleItem">
                       < Link to={`products/${product.id}`}>
-                          <div className="image-container"><img className="card-img" src={product.image} alt="product-image" /></div>
+                          <div className="image-container"><img className="listImages" src={product.image} alt="product-image" /></div>
                       </Link>
                       <h4>{product.name}</h4>
                       <p> Price: {product.price} </p>
@@ -40,13 +41,13 @@ export function Cart(props) {
       )
     } else {
       return (
-        <div className="listView">
+        <div className="list">
           <button onClick={() => props.checkoutCart(props.auth.id)}>checkout</button>
           <div className="cards">
               {productsForOrder[0].products.map((product) => (
-                  <div key={product.id} className="card">
+                  <div key={product.id} className="singleItem">
                       < Link to={`products/${product.id}`}>
-                          <div className="image-container"><img className="card-img" src={product.image} alt="product-image" /></div>
+                          <div className="image-container"><img className="listImages" src={product.image} alt="product-image" /></div>
                       </Link>
                       <h4>{product.name}</h4>
                       <p> Price: {product.price} </p>
