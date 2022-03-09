@@ -46,6 +46,7 @@ export class AddProductForm extends React.Component {
 
           <button className="button" type="submit">Add Product</button>
         </form>
+        <hr />
       </div>
     );
   }

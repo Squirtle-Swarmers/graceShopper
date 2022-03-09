@@ -1,9 +1,9 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
-import {logout} from '../store'
+import { connect } from 'react-redux'
+import { Link } from 'react-router-dom'
+import { logout } from '../store'
 
-const Navbar = ({handleClick, isLoggedIn}) => (
+const Navbar = ({ handleClick, isLoggedIn }) => (
   <div>
     <h1> StreetStack </h1>
     <nav>
@@ -13,6 +13,7 @@ const Navbar = ({handleClick, isLoggedIn}) => (
           <Link to="/home">Home</Link>
           <Link to="/products">Products</Link>
           <Link to='/accountinfo'>Account Info</Link>
+          <Link to="/users"> Users </Link>
           <Link to="/cart">Cart</Link>
           <a href="#" onClick={handleClick}>
             Logout

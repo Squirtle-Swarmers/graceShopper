@@ -20,7 +20,56 @@ form div {
   display: inline-block;
 }
 
-.cards {
+.list {
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  text-align: center;
+  color: black;
+}
+.singleItem {
+  width: 33%;
+  float: left;
+  margin: 0; 
+  padding: 0;
+}
+.singleItem-user{
+  width: 25%;
+  float: left;
+  margin-left: 5px; 
+  padding: 0;
+  background-color: gray;
+  color: white;
+  border-radius: 15px;
+}
+.listImages {
+  border: 2px black solid;
+  width:300px;
+  height:300px;
+  object-fit:cover;
+  border-radius: 15px;
+}
+.singelItemView {
+  justify-content: center;
+  text-align: center;
+}
+.singleImage {
+  height: 70%;
+  width: 70%;
+
+}
+
+.deleteButton:hover {
+  background-color: red;
+}
+
+.listImages:hover {
+  opacity: 0.7;
+
+}
+
+
+/* .cards {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -52,13 +101,4 @@ form div {
 
 .card-img {
   width: 100%;
-}
-
-.singelItemView {
-  justify-content: center;
-  text-align: center;
-}
-.singleImage {
-  height: 60%;
-  width: 60%;
-}
+} */

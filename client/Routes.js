@@ -8,6 +8,8 @@ import { me } from './store'
 import SingleProduct from './components/SingleProduct'
 import AccountInfo from './components/AccountInfo';
 import Cart from './components/Cart';
+import UserList from './components/UserList';
+
 /**
  * COMPONENT
  */
@@ -18,7 +20,7 @@ class Routes extends Component {
 
   render() {
     console.log(" // [ Routes Component ] - this.props: ", this.props)
-    const { isLoggedIn } = this.props
+    const { isLoggedIn, isAdmin } = this.props
 
     return (
       <div>
@@ -31,6 +33,8 @@ class Routes extends Component {
             <Route exact path="/products/:productId" component={SingleProduct} />
             <Route exact path="/accountinfo" component={AccountInfo} />
             <Route exact path="/cart" component={Cart} />
+            {isAdmin ? <Route exact path="/users" component={UserList} /> : ""}
+
           </Switch>
         ) : (
           <Switch>
@@ -51,10 +55,12 @@ class Routes extends Component {
  * CONTAINER
  */
 const mapState = state => {
+  console.log("// [Routes Component - mapstate] state: ", state)
   return {
     // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
     // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
-    isLoggedIn: !!state.auth.id
+    isLoggedIn: !!state.auth.id,
+    isAdmin: !!state.auth.isAdmin,
   }
 }
 
