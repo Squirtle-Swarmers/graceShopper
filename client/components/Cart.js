@@ -24,7 +24,9 @@ export function Cart(props) {
                     <h4>{product.name}</h4>
                     <p> Price: {product.price} </p>
                     <p>Quantity: {product.orderDetails.quantity}</p>
-                    <button onClick={() => props.updateCart(props.auth.id, product.id, -1)}>-</button>
+                    <button onClick={() => {
+                      product.orderDetails.quantity < 2 ? props.updateCart(props.auth.id, product.id, 0) : props.updateCart(props.auth.id, product.id, -1)
+                      }}>-</button>
                     <button onClick={() => props.updateCart(props.auth.id, product.id, 0)}>Remove From Cart</button>
                     <button onClick={() => props.updateCart(props.auth.id, product.id, 1)}>+</button>
                 </div>
