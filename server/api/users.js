@@ -1,4 +1,5 @@
 const router = require('express').Router()
+
 const { models: { User } } = require('../db')
 const { requireToken, isAdmin } = require('./gatekeepingMiddleware')
 const Order = require('../db/models/Order')
@@ -50,19 +51,22 @@ router.put('/:id', async (req, res, next) => {
       ]
     })
     let currentOrder = {};
-
     if (currentUser.orders.length) {
       currentOrder = currentUser.orders[0];
     } else {
       currentOrder = await Order.create({ userId: currentUser.id });
     }
+    console.log(req.body)
     await currentOrder.incrementProduct(
       req.body.productId,
       req.body.quantityChange
     )
-    const updatedOrder = await Order.findByPk(currentOrder.dataValues.id, {
-      include: [Product]
-    });
+    const updatedOrder = await User.findByPk(currentUser.id, { 
+      include: {
+        model: Order,
+        include: [Product]
+      },
+    })
     res.json(updatedOrder);
   } catch (error) {
     next(error);

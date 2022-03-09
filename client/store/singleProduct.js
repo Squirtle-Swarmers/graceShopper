@@ -2,7 +2,7 @@ import axios from "axios";
 
 //Action Constants
 const SET_SINGLE_PRODUCT = "SET_SINGLE_PRODUCT";
-const UPDATE_SINGLE_PRODUCT = "UPDATE_SINGLE_PRODUCT"
+const UPDATE_SINGLE_PRODUCT = "UPDATE_SINGLE_PRODUCT";
 
 //Action Creators
 export const setSingleProduct = (singleProduct) => {
@@ -16,8 +16,10 @@ export const updateSingleProduct = (updatedProduct) => {
   return {
     type: UPDATE_SINGLE_PRODUCT,
     updatedProduct,
-  }
-}
+  };
+};
+
+
 
 // Thunk Creators
 export const fetchSingleProductThunk = (productId) => {
