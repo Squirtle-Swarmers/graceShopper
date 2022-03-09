@@ -34,7 +34,7 @@ router.get('/:productId', async (req, res, next) => {
 });
 
 // DELETE api/products/productId
-router.delete("/:productId", async (req, res, next) => {
+router.delete("/:productId", requireToken, isAdmin, async (req, res, next) => {
   try {
     const productToBeDeleted = await Product.findByPk(req.params.productId);
     await productToBeDeleted.destroy();

@@ -2,11 +2,11 @@ const router = require('express').Router()
 const { models: { User } } = require('../db')
 const { requireToken, isAdmin } = require('./gatekeepingMiddleware')
 const Order = require('../db/models/Order')
-const OrderDetails = require('../db/models/OrderDetails') 
+const OrderDetails = require('../db/models/OrderDetails')
 const Product = require('../db/models/Product')
 module.exports = router
 
-router.get('/', requireToken, isAdmin, async (req, res, next) => {
+router.get('/', async (req, res, next) => {
   try {
     const users = await User.findAll({
       // explicitly select only the id and username fields - even though
@@ -33,7 +33,7 @@ router.get('/:userId/orders', async (req, res, next) => {
   } catch (error) {
     next(error)
   }
-}) 
+})
 
 router.put('/:id', async (req, res, next) => {
   try {
@@ -54,14 +54,14 @@ router.put('/:id', async (req, res, next) => {
     if (currentUser.orders.length) {
       currentOrder = currentUser.orders[0];
     } else {
-      currentOrder = await Order.create({ userId: currentUser.id});
+      currentOrder = await Order.create({ userId: currentUser.id });
     }
     await currentOrder.incrementProduct(
       req.body.productId,
       req.body.quantityChange
     )
-    const updatedOrder = await Order.findByPk(currentOrder.dataValues.id, { 
-      include: [Product] 
+    const updatedOrder = await Order.findByPk(currentOrder.dataValues.id, {
+      include: [Product]
     });
     res.json(updatedOrder);
   } catch (error) {
