@@ -72,3 +72,31 @@ router.put('/:id', async (req, res, next) => {
     next(error);
   }
 })
+
+router.put('/:id/checkout', async (req, res, next) => {
+  try {
+    const currentUser = await User.findByPk(req.params.id, {
+      include: [
+        {
+          model: Order,
+          where: {
+            status: 'unfulfilled',
+          },
+          required: false,
+          include: [Product],
+        }
+      ]
+    });
+    let currentOrder = {};
+    if (currentUser.orders.length) {
+      currentOrder = currentUser.orders[0];
+      await currentOrder.update({ status: "fulfilled" });
+    } else {
+      throw new Error("empty cart");
+    }
+    res.json(currentOrder);
+  } catch (error) {
+    next(error);
+  }
+
+})

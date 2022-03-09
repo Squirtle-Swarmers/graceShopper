@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { fetchOrderThunk } from "../store/cart";
+import { checkoutCartThunk, fetchOrderThunk } from "../store/cart";
 import { updateCartThunk } from "../store/cart";
 import { Link } from "react-router-dom";
 
@@ -32,6 +32,7 @@ export function Cart(props) {
                 </div>
             ))}
         </div>
+        {/* <button onClick={() => props.checkoutCart(props.auth.id)}>checkout</button> */}
       </div>
     )
   } else {
@@ -52,7 +53,8 @@ function mapState(state) {
 function mapDispatch(dispatch) {
   return {
     setCart: (userId) => dispatch(fetchOrderThunk(userId)),
-    updateCart: (userId, productId, quantityChange) => dispatch(updateCartThunk(userId, productId, quantityChange))
+    updateCart: (userId, productId, quantityChange) => dispatch(updateCartThunk(userId, productId, quantityChange)),
+    checkoutCart: (userId) => dispatch(checkoutCartThunk(userId)),
   };
 }
 

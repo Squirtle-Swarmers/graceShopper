@@ -3,6 +3,7 @@ const axios = require("axios");
 
 // Action Constants -- store action types as constants
 const SET_CART = "SET_CART";
+// const CHECKOUT = "CHECKOUT";
 
 // Action Creators -- functions that return an action object
 export const setCart = (order) => {
@@ -12,12 +13,19 @@ export const setCart = (order) => {
   };
 };
 
+// export const checkout = (order) => {
+//   return {
+//     type: CHECKOUT,
+//     order,
+//   }
+// }
+
 // Thunk Creators - returns aysnc function that dispatches the action creator
 // fetches the list of campuses
 export const fetchOrderThunk = (userId) => {
   return async (dispatch) => {
     const response = await axios.get(`/api/users/${userId}/orders`);
-    const cart = response.data//.orders.filter((order) => order.status === "unfulfilled");
+    const cart = response.data//.orders//.filter(order => order.status !== "fulfilled");
     console.log("// [fetchOrderThunk ] - response.data", cart);
     dispatch(setCart(cart));
   };
@@ -36,6 +44,19 @@ export const updateCartThunk = (userId, productId, updatedQuantity) => {
     }
   }
 }
+
+// export const checkoutCartThunk = (userId) => {
+//   return async (dispatch) => {
+//     try {
+//       const response = await axios.put(`/api/users/${userId}/checkout`);
+//       const data = response.data;
+//       console.log(data);
+//       dispatch(setCart(data));
+//     } catch (error) {
+//       console.log("Error from checkout thunk")
+//     }
+//   }
+// }
 
 
 // Reducer
