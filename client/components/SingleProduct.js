@@ -12,10 +12,11 @@ export function SingleProduct(props) {
 
     async function handleAdd(productId, quantityChange) {
         if (props.auth.id) {
-            await axios.put(`/api/users/${props.auth.id}`, {"productId": productId, "quantityChange": quantityChange});
+            await axios.put(`/api/users/${props.auth.id}`, { "productId": productId, "quantityChange": quantityChange });
             window.alert("added to cart")
         } else {
-            
+            window.alert("Please Login to add items to cart")
+
         }
     }
 

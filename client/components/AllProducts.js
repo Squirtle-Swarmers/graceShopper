@@ -15,10 +15,10 @@ export function AllProducts(props) {
 
     async function handleAdd(productId, quantityChange) {
         if (props.auth.id) {
-            await axios.put(`/api/users/${props.auth.id}`, {"productId": productId, "quantityChange": quantityChange});
+            await axios.put(`/api/users/${props.auth.id}`, { "productId": productId, "quantityChange": quantityChange });
             window.alert("added to cart")
         } else {
-            //not logged in
+            window.alert("Please login to add items to cart")
         }
     }
 
@@ -39,7 +39,7 @@ export function AllProducts(props) {
                                 <h4>{product.name}</h4>
                                 <p> Price: {product.price} </p>
                                 <button onClick={() => handleAdd(product.id, 1)}> Add to Cart </button>
-                                {props.auth.isAdmin ? <button type="button" onClick={() => handleDelete(product.id)}> Delete Product </button> : ''}
+                                {props.auth.isAdmin ? <button type="button" className="deleteButton" onClick={() => handleDelete(product.id)}> Delete Product </button> : ''}
                             </div>
                         </div>
                     ))}
@@ -54,7 +54,8 @@ function mapState(state) {
     console.log("// logging state from mapState in AllProducts", state);
     return {
         products: state.products,
-        auth: state.auth
+        auth: state.auth,
+        isLoggedIn: !!state.auth.id
     }
 
 }
